@@ -27,6 +27,10 @@ CKV 主从版通过独有的方案，保证版本升级做到业务无感知，�
 - CKV 主从版的性能最大支持 12+万 QPS，需要更高的 QPS 请选择 CKV 集群版，最大可支持 1000万 QPS；
 - CKV 对于 pttl 的设置毫秒的过期时间，展示的最小单位为秒，与社区版 Redis 不一致；
 - CKV 目前支持的 string 类型 Key，Value 最大 Size 为 32MB，与社区版 Redis 不一致；
+- CKV 引擎的实例链接密码格式为“实例 id:密码” ，这是和社区版实例不一致的地方；
+- CKV 引擎 dbsize命令，实现的时间复杂度为O(n)，会阻塞式的遍历所有Key，需要谨慎使用；
+- CKV 引擎的订阅机制依赖与一个内置的{Keyckv_plus_pub_sub}_patterns，如果您使用订阅pub、sub功能，请不要删除该Key，否则会导致订阅失效；
+
 
 ###  连接示例
 CKV 主从版仅支持以下密码格式，“实例 id:密码” 的格式类型，例如您的实例 id 是 crs-bkuza6i3，设置的密码是 abcd1234，则连接命令如下 redis-cli -h IP地址 -p 端口 -a crs-bkuza6i3:abcd1234。
